@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Transfer</title>
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/templatemo-grad-school.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/owl.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/lightbox.css' %}">
+</head>
+
+<body style="background-color: rgba(22,34,57,0.85);">
+    
+  <!--header-->
+  <header class="main-header clearfix" role="header">
+    <div class="logo">
+      <a href="{% url 'index' %}"><em>My</em> Bank</a>
+    </div>
+    <a href="#menu" class="menu-link"><i class="fa fa-bars"></i></a>
+    <nav id="menu" class="main-nav" role="navigation">
+      <ul class="main-menu">
+        <li><a href="#"><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;{{acc.cid.name}}</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-exchange" aria-hidden="true"></i>&nbsp;{{acc.ano}}</a></li>
+        <li><a href="#"><i class="fa fa-usd" aria-hidden="true"></i>&nbsp;{{acc.balance}}</a></li>
+      </ul>
+    </nav>
+  </header>
+   
+
+    <form action="{% url 'transfermoney' %}" method="POST">
+        {% csrf_token %}
+        <div class="container mt-5 py-5">
+            <div class="row">
+                <div class="col-6 form-group">
+                    <label for="first_name" class="text-light">Name</label>
+                    <input type="text" name="fname"class="form-control" placeholder={{acc.cid.name}} readonly>
+                </div>
+                <div class="col-6 form-group">
+                    <label for="last_name" class="text-light">Account No</label>
+                    <input type="text" name="fromano" class="form-control" placeholder={{acc.ano}} value = {{acc.ano}} readonly>
+                </div>
+                </div>
+                <div class="row">
+                    <label for="last_name" class="text-light">To Account No</label>
+                    <div class=" col-12 input-group mb-3">
+                       
+                        
+                        <label class="text-light">
+                            <input list="accounts" class="form-control" name="toano" required /></label>
+                            <datalist id="accounts">
+                                {% for i in toacc %}
+                              <option value={{i.ano}}>
+                                {% endfor %}
+                            </datalist>
+                        
+                      </div>
+                      
+            </div>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="username" class="text-light">Date</label>
+                    <input type="text" name="date" class="form-control" placeholder="Date" value='{% now "jS F Y H:i" %}' required>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="username" class="text-light">Amount</label>
+                    <input type="number" name="amount" class="form-control" placeholder="amount" required>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <input type="submit" class="px-5 py-2 btn btn-secondary">
+                </div>
+            </div>
+        </div>
+    </form>
+  
+    <footer class="fixed-bottom">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <p> &nbsp;Reahaan Sheriff</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <script src="{% static 'js/isotope.min.js' %}"></script>
+      <script src="{% static 'js/owl-carousel.js' %}"></script>
+      <script src="{% static 'js/lightbox.js' %}"></script>
+      <script src="{% static 'js/tabs.js' %}"></script>
+      <script src="{% static 'js/video.js' %}"></script>
+      <script src="{% static 'js/slick-slider.js' %}"></script>
+      <script src="{% static 'js/custom.js' %}"></script>
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
